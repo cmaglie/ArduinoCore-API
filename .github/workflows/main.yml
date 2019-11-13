@@ -1,0 +1,18 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v1.0.0
+      - name: Create a test environment
+        run: |
+          mkdir tmp
+          cd tmp
+          echo "sketchbook_path: $PWD/sketchbook" > conf.yaml
+          arduino-cli --config-file conf.yaml config dump
